@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			这是父元素：{{num}} <button @click="num++">++</button>
+			<no1 :num="num"></no1>
+		</div>
+		<template id="no1">
+			<div>
+				这是子元素：{{no1}} <button @click="btn">++</button>
+			</div>
+		</template>
+	</body>
+	<script src="vue.js"></script>
+	<script>
+		Vue.component('no1',{
+			template:"#no1",
+			props:['num'],
+			data(){
+				return{
+					no1:this.num
+				}
+			},
+			methods:{
+				btn(){
+					this.no1++
+				}
+			},
+			watch:{
+				num(a,b){
+					this.no1=a
+				}
+			}
+		})
+		new Vue({
+			el:'#box',
+			data:{
+				num:0
+			}
+		})
+	</script>
+</html>

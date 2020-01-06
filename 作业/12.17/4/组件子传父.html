@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			父：{{num}} <button @click="num++">++</button>
+			<no1 @no1='ddd'></no1>
+		</div>
+		<template id="no1">
+			<div>
+				子：{{no1}} <button @click="btn">++</button>
+			</div>
+		</template>
+	</body>
+	<script src="vue.js"></script>
+	<script>
+		Vue.component('no1',{
+			template:'#no1',
+			data(){
+				return{
+					no1:0
+				}
+			},
+			methods:{
+				btn(){
+					this.no1++
+					this.$emit('no1',this.no1)
+				}
+			}
+		})
+		new Vue({
+			el:"#box",
+			data:{
+				num:0
+			},
+			methods:{
+				ddd(a){
+					this.num=a
+				}
+			}
+		})
+	</script>
+</html>
